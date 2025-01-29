@@ -1,0 +1,11 @@
+.profile_info {
+	color: rgb(0, 0, 0);
+}
+.avatar {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+}
+.description_block {
+	padding: 10px;
+}
