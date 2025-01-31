@@ -7,18 +7,7 @@ const Message = props => {
 		let text = addNewMessage.current.value
 		alert(text)
 	}
-	return (
-		<div className={s.message}>
-			{props.message}
-			<textarea
-				className={s.new_message_textarea}
-				ref={addNewMessage}
-			></textarea>
-			<button className={s.new_message_btn} onClick={sendMessage}>
-				Send message
-			</button>
-		</div>
-	)
+	return <div className={s.message}>{props.message}</div>
 }
 
 export default Message
