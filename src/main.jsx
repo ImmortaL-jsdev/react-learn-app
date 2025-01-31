@@ -1,10 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import state from './redux/state.jsx'
+import store from './redux/state.jsx'
 import App from './App.jsx'
-import { addPost, updateNewPostText } from './redux/state.jsx'
-import { subscribe } from './redux/state.jsx'
 
 // Создаем корень сразу после импорта необходимых модулей
 const container = document.getElementById('root')
@@ -16,12 +14,12 @@ let rerenderEntireTree = state => {
 		<StrictMode>
 			<App
 				state={state}
-				addPost={addPost}
-				updateNewPostText={updateNewPostText}
+				addPost={store.addPost.bind(store)}
+				updateNewPostText={store.updateNewPostText.bind(store)}
 			/>
 		</StrictMode>,
 	)
 }
 
-rerenderEntireTree(state)
-subscribe(rerenderEntireTree)
+rerenderEntireTree(store.getState())
+store.subscribe(rerenderEntireTree)
