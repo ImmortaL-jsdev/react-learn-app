@@ -12,17 +12,15 @@ const initialState = {
 	],
 	messageData: [
 		{ id: 1, message: 'Hello' },
-		{ id: 2, message: 'How are you' },
-		{
-			id: 3,
-			message: 'Who are you nigga, why are you kidding me?',
-		},
+		{ id: 2, message: 'How are you?' },
+		{ id: 3, message: 'Who are you nigga, why are you kidding me?' },
 		{ id: 4, message: 'Hola amigo, tu hablas espanol?' },
 		{ id: 5, message: 'Yo, I am Fiona' },
 		{ id: 6, message: 'My name is Raze' },
 	],
 	newMessageBody: '',
 }
+
 const dialogsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case UPDATE_NEW_MESSAGE_BODY:
@@ -53,4 +51,5 @@ export const updateNewMessageBodyCreator = text => ({
 	type: UPDATE_NEW_MESSAGE_BODY,
 	newBody: text,
 })
+
 export default dialogsReducer

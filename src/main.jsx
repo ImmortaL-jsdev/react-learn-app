@@ -1,7 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { Provider } from 'react-redux' // Импортируем Provider
 import './index.css'
-import store from './redux/store.jsx'
+import store from './redux/redux-store.jsx'
 import App from './App.jsx'
 
 // Создаем корень сразу после импорта необходимых модулей
@@ -9,13 +10,17 @@ const container = document.getElementById('root')
 const root = createRoot(container)
 
 // Функция для рендеринга приложения
-let rerenderEntireTree = state => {
+const renderEntireTree = () => {
 	root.render(
 		<StrictMode>
-			<App state={state} dispatch={store.dispatch.bind(store)} store={store} />
+			<Provider store={store}>
+				{' '}
+				{/* Оборачиваем App в Provider */}
+				<App />
+			</Provider>
 		</StrictMode>,
 	)
 }
 
-rerenderEntireTree(store.getState())
-store.subscribe(rerenderEntireTree)
+renderEntireTree() // Вызываем функцию рендеринга
+store.subscribe(renderEntireTree)

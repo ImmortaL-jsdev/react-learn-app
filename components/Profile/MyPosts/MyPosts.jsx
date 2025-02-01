@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import s from '../MyPosts/MyPosts.module.css'
 import Post from './Post/Post'
 import {
@@ -7,7 +8,7 @@ import {
 } from '../../../src/redux/profileReducer.jsx'
 
 const MyPosts = props => {
-	let postElements = props.postData.map((post, index) => (
+	let postElements = props.postData.map(post => (
 		<Post key={post.id} message={post.post} likesCount={post.likesCount} />
 	))
 
@@ -22,6 +23,7 @@ const MyPosts = props => {
 		let action = updateNewPostTextActionCreator(text)
 		props.dispatch(action)
 	}
+
 	return (
 		<div className='content'>
 			<h3 className={s.posts_block}>My posts</h3>
@@ -39,4 +41,17 @@ const MyPosts = props => {
 	)
 }
 
-export default MyPosts
+const mapDispatchToProps = dispatch => {
+	return {
+		dispatch, // передаем dispatch
+	}
+}
+
+const mapStateToProps = state => {
+	return {
+		postData: state.profilePage.postData,
+		newPostText: state.profilePage.newPostText,
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyPosts)
