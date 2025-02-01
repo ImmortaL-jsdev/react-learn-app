@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import store from './redux/state.jsx'
+import store from './redux/store.jsx'
 import App from './App.jsx'
 
 // Создаем корень сразу после импорта необходимых модулей
