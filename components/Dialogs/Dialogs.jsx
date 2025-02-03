@@ -17,7 +17,7 @@ const Dialogs = ({ updateNewMessageBody, sendMessage, messagesPage }) => {
 
 	// Обработчик при нажатии на кнопку "Send"
 	const onSendMessageClick = () => {
-		sendMessage()
+		sendMessage(newMessageBody)
 	}
 
 	// Обработчик изменения текста
