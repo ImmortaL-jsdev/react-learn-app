@@ -8,7 +8,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Music from '../components/Musics/Music.jsx'
 import Settings from '../components/Settings/Settings.jsx'
 import Friends from '../components/Friends/Friends.jsx'
-import { useSelector } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
+import DialogsContainer from '../components/Dialogs/DialogsContainer.jsx'
 
 const App = () => {
 	const profilePage = useSelector(state => state.profilePage)
@@ -38,7 +39,7 @@ const App = () => {
 							path='/dialogs/*'
 							element={
 								messagesPage ? ( // Здесь используется messagesPage
-									<Dialogs
+									<DialogsContainer
 										dialogsData={messagesPage.dialogsData}
 										messageData={messagesPage.messageData}
 										messagesPage={messagesPage}
