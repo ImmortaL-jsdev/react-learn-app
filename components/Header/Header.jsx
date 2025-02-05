@@ -4,11 +4,7 @@ const Header = () => {
 		<>
 			<header className={s.header}>
 				<div className={s.profile__header}>
-					<img
-						className={s.header__img}
-						src='/src/assets/wallpaper1.jpg'
-						alt=''
-					/>
+					<a href='#'>SoWork</a>
 				</div>
 			</header>
 		</>

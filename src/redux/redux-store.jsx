@@ -12,4 +12,6 @@ const rootReducer = combineReducers({
 
 const store = legacy_createStore(rootReducer)
 
+window.store = store
+
 export default store

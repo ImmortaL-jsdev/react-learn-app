@@ -10,7 +10,9 @@ const MyPosts = ({ postData, updateNewPostText, addPost, newPostText }) => {
 	const onPostChange = e => {
 		updateNewPostText(e.target.value) // Ensure this is being called correctly
 	}
-
+	const handleLike = postId => {
+		dispatch(likePostActionCreator(postId))
+	}
 	return (
 		<div className='content'>
 			<h3 className={s.posts_block}>My posts</h3>

@@ -22,7 +22,7 @@ body {
 }
 .app-wrapper-content {
 	grid-area: c;
-	background-color: rgb(102, 102, 102);
+	background-color: #666666;
 	color: white;
 	font-size: 25px;
 }
