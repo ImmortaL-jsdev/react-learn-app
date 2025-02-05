@@ -4,7 +4,7 @@ const Header = () => {
 		<>
 			<header className={s.header}>
 				<div className={s.profile__header}>
-					<a href='#'>SoWork</a>
+					<a href='/home'>SoWork</a>
 				</div>
 			</header>
 		</>

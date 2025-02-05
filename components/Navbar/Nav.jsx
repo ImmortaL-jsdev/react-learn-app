@@ -7,6 +7,15 @@ const NavBar = () => {
 				<div className={s.item}>
 					{' '}
 					<NavLink
+						to='/home'
+						className={navData => (navData.isActive ? s.active : s.item)}
+					>
+						Home
+					</NavLink>
+				</div>
+				<div className={s.item}>
+					{' '}
+					<NavLink
 						to='/profile'
 						className={navData => (navData.isActive ? s.active : s.item)}
 					>
@@ -23,6 +32,14 @@ const NavBar = () => {
 					</NavLink>
 				</div>
 				<div className={s.item}>
+					<NavLink
+						to='/users'
+						className={navData => (navData.isActive ? s.active : s.item)}
+					>
+						Users
+					</NavLink>
+				</div>
+				<div className={s.item}>
 					{' '}
 					<NavLink
 						to='/music'
@@ -31,6 +48,7 @@ const NavBar = () => {
 						Music
 					</NavLink>
 				</div>
+
 				<div className={s.item}>
 					{' '}
 					<NavLink
@@ -38,14 +56,6 @@ const NavBar = () => {
 						className={navData => (navData.isActive ? s.active : s.item)}
 					>
 						Settings
-					</NavLink>
-				</div>
-				<div className={s.item}>
-					<NavLink
-						to='/friends'
-						className={navData => (navData.isActive ? s.active : s.item)}
-					>
-						Friends
 					</NavLink>
 				</div>
 			</nav>

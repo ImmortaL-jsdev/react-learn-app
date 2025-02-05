@@ -7,7 +7,7 @@ const ProfileInfo = () => {
 				<div>
 					<img className={s.avatar} src='src\assets\avatar.jpeg' alt='avatar' />
 				</div>
-				<div className={s.description_block}>avatar + description</div>
+				<div className={s.description_block}></div>
 			</div>
 		</>
 	)
