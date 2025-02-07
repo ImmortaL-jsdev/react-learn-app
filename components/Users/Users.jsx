@@ -1,77 +1,73 @@
 import { useEffect } from 'react'
 import s from '../Users/Users.module.css'
+import axios from 'axios'
 
 const Users = props => {
 	useEffect(() => {
-		if (props.users.length === 0) {
-			props.setUsers([
-				{
-					id: 1,
-					fullName: 'Peter',
-					age: '21',
-					avatarUrl:
-						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUTLhfdkuzPiOnl9wfnneG9l-bOM-YR53JCQ&s',
-					status: 'Hola',
-					location: { countryName: 'Russia', cityName: 'Moscow' },
-					followed: true,
-				},
-				{
-					id: 2,
-					fullName: 'Nicolas',
-					age: '20',
-					avatarUrl:
-						'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUTLhfdkuzPiOnl9wfnneG9l-bOM-YR53JCQ&s',
-					status: 'Yo',
-					location: { countryName: 'Switzerland', cityName: 'Zurich' },
-					followed: false,
-				},
-			])
+		// Получаем пользователей при монтировании компонента
+		const fetchUsers = async () => {
+			try {
+				const response = await axios.get(
+					'https://jsonplaceholder.typicode.com/users',
+				)
+				const users = Array.isArray(response.data) ? response.data : []
+				props.setUsers(users)
+			} catch (error) {
+				console.error('Ошибка при получении пользователей:', error)
+			}
 		}
-	}, [props.users.length]) // Зависимость от длины users
+		fetchUsers()
+	}, [props])
+
 	return (
-		<>
-			<div className=''>
-				{props.users.map(u => (
+		<div>
+			{props.users.length === 0 ? (
+				<p>Нет пользователей для отображения.</p>
+			) : (
+				props.users.map(u => (
 					<div key={u.id}>
 						<span>
 							<div>
-								<img src={u.avatarUrl} className={s.usersAvatar} />
+								<img
+									src={
+										u.photos && u.photos.small
+											? u.photos.small
+											: 'src/assets/images.jpg'
+									}
+									className={s.usersAvatar}
+									alt={u.name}
+								/>
 							</div>
 							<div>
 								{u.followed ? (
-									<button
-										onClick={() => {
-											props.unfollow(u.id)
-										}}
-									>
-										Unfollow
+									<button onClick={() => props.unfollow(u.id)}>
+										unsubscribed
 									</button>
 								) : (
-									<button
-										onClick={() => {
-											props.follow(u.id)
-										}}
-									>
-										Follow
-									</button>
+									<button onClick={() => props.follow(u.id)}>subscribe</button>
 								)}
 							</div>
 						</span>
 						<span>
 							<span>
-								<div className=''>{u.fullName}</div>
+								<div className=''>{u.name}</div>
 								<div className=''>{u.age}</div>
 								<div className=''>{u.status}</div>
 							</span>
 							<span>
-								<div className=''>{u.location.countryName}</div>
-								<div className=''>{u.location.cityName}</div>
+								<div className=''>
+									{u.location ? u.location.countryName : 'Неизвестная страна'}
+								</div>
+								<div className=''>
+									{u.location ? u.location.cityName : 'Неизвестный город'}
+								</div>
 							</span>
 						</span>
 					</div>
-				))}
-			</div>
-		</>
+				))
+			)}
+		</div>
 	)
 }
+
 export default Users

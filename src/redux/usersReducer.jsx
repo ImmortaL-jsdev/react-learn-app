@@ -1,8 +1,7 @@
-import { act } from 'react'
-
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
+
 const initialState = {
 	users: [],
 }
@@ -12,29 +11,23 @@ const usersReducer = (state = initialState, action) => {
 		case FOLLOW:
 			return {
 				...state,
-				users: state.users.map(u => {
-					if (u.id === action.userId) {
-						return { ...u, followed: true }
-					}
-					return u
-				}),
+				users: state.users.map(u =>
+					u.id === action.userId ? { ...u, followed: true } : u,
+				),
 			}
 
 		case UNFOLLOW:
 			return {
 				...state,
-				users: state.users.map(u => {
-					if (u.id === action.userId) {
-						return { ...u, followed: false }
-					}
-					return u
-				}),
+				users: state.users.map(u =>
+					u.id === action.userId ? { ...u, followed: false } : u,
+				),
 			}
 
 		case SET_USERS:
 			return {
 				...state,
-				users: [...action.users],
+				users: Array.isArray(action.users) ? [...action.users] : [],
 			}
 
 		default:
@@ -42,6 +35,7 @@ const usersReducer = (state = initialState, action) => {
 	}
 }
 
+// Action creators
 export const followAC = userId => ({
 	type: FOLLOW,
 	userId,
