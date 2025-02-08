@@ -1,71 +1,45 @@
-import { useEffect } from 'react'
+import React from 'react'
 import s from '../Users/Users.module.css'
-import axios from 'axios'
+import defaultAvatar from '../../src/assets/images.jpg' // Импорт изображения
 
-const Users = props => {
-	useEffect(() => {
-		// Получаем пользователей при монтировании компонента
-		const fetchUsers = async () => {
-			try {
-				const response = await axios.get(
-					'https://jsonplaceholder.typicode.com/users',
-				)
-				const users = Array.isArray(response.data) ? response.data : []
-				props.setUsers(users)
-			} catch (error) {
-				console.error('Ошибка при получении пользователей:', error)
-			}
-		}
-		fetchUsers()
-	}, [props])
-
+const Users = ({ users, follow, unfollow }) => {
 	return (
 		<div>
-			{props.users.length === 0 ? (
-				<p>Нет пользователей для отображения.</p>
-			) : (
-				props.users.map(u => (
-					<div key={u.id}>
+			{users.map(u => (
+				<div key={u.id}>
+					<span>
+						<div>
+							<img
+								src={
+									u.photos && u.photos.small ? u.photos.small : defaultAvatar
+								}
+								className={s.usersAvatar}
+								alt={u.name}
+							/>
+						</div>
+						<div>
+							{u.followed ? (
+								<button onClick={() => unfollow(u.id)}>Unfollow</button>
+							) : (
+								<button onClick={() => follow(u.id)}>Follow</button>
+							)}
+						</div>
+					</span>
+					<span>
 						<span>
-							<div>
-								<img
-									src={
-										u.photos && u.photos.small
-											? u.photos.small
-											: 'src/assets/images.jpg'
-									}
-									className={s.usersAvatar}
-									alt={u.name}
-								/>
-							</div>
-							<div>
-								{u.followed ? (
-									<button onClick={() => props.unfollow(u.id)}>
-										unsubscribed
-									</button>
-								) : (
-									<button onClick={() => props.follow(u.id)}>subscribe</button>
-								)}
-							</div>
+							<div>{u.name}</div>
+							<div>{u.age ? u.age : 'Возраст не указан'}</div>
+							<div>{u.status ? u.status : 'Статус не указан'}</div>
 						</span>
 						<span>
-							<span>
-								<div className=''>{u.name}</div>
-								<div className=''>{u.age}</div>
-								<div className=''>{u.status}</div>
-							</span>
-							<span>
-								<div className=''>
-									{u.location ? u.location.countryName : 'Неизвестная страна'}
-								</div>
-								<div className=''>
-									{u.location ? u.location.cityName : 'Неизвестный город'}
-								</div>
-							</span>
+							<div>
+								{u.location ? u.location.country : 'Неизвестная страна'}
+							</div>
+							<div>{u.address ? u.address.city : 'Неизвестный город'}</div>
 						</span>
-					</div>
-				))
-			)}
+					</span>
+				</div>
+			))}
 		</div>
 	)
 }
