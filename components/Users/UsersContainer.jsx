@@ -6,15 +6,19 @@ import {
 	unfollowAC,
 	setCurrentPageAC,
 	setTotalUsersCountAC,
+	tougleIsFetchingAC,
 } from '../../src/redux/usersReducer'
 import Users from './Users'
 import axios from 'axios'
+
+import Preloader from '../common/Preloader'
 
 const UsersContainer = () => {
 	const users = useSelector(state => state.users.users || []) // Получаем массив пользователей из Redux
 	const pageSize = useSelector(state => state.users.pageSize)
 	const totalUsersCount = useSelector(state => state.users.totalUsersCount)
 	const currentPage = useSelector(state => state.users.currentPage)
+	const isFetching = useSelector(state => state.users.isFetching)
 
 	const dispatch = useDispatch()
 
@@ -35,9 +39,13 @@ const UsersContainer = () => {
 	const setTotalUsersCount = totalCount => {
 		dispatch(setTotalUsersCountAC(totalCount))
 	}
+	const tougleIsFetching = isFetching => {
+		dispatch(tougleIsFetchingAC(isFetching))
+	}
 
 	let onPageChanged = async pageNumber => {
 		setCurrentPage(pageNumber)
+		tougleIsFetching(true)
 		try {
 			const response = await axios.get(
 				`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`,
@@ -47,6 +55,7 @@ const UsersContainer = () => {
 			if (Array.isArray(response.data.items)) {
 				setUsers(response.data.items)
 				setTotalUsersCount(response.data.totalCount)
+				tougleIsFetching(false)
 			} else {
 				console.error('Ошибка: items не является массивом', response.data.items)
 			}
@@ -56,6 +65,7 @@ const UsersContainer = () => {
 	}
 
 	const fetchUsers = async () => {
+		tougleIsFetching(true)
 		try {
 			const response = await axios.get(
 				`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
@@ -63,6 +73,7 @@ const UsersContainer = () => {
 
 			// Проверяем, что response.data.items - это массив
 			if (Array.isArray(response.data.items)) {
+				tougleIsFetching(false)
 				setUsers(response.data.items)
 			} else {
 				console.error('Ошибка: items не является массивом', response.data.items)
@@ -79,16 +90,20 @@ const UsersContainer = () => {
 	}, [users])
 
 	return (
-		<Users
-			users={users}
-			follow={follow}
-			unfollow={unfollow}
-			pageSize={pageSize}
-			totalUsersCount={totalUsersCount}
-			currentPage={currentPage}
-			setCurrentPage={setCurrentPage}
-			onPageChanged={onPageChanged}
-		/>
+		<>
+			<Preloader isFetching={isFetching} />
+			<Users
+				users={users}
+				follow={follow}
+				unfollow={unfollow}
+				pageSize={pageSize}
+				totalUsersCount={totalUsersCount}
+				currentPage={currentPage}
+				setCurrentPage={setCurrentPage}
+				onPageChanged={onPageChanged}
+				isFetching={isFetching}
+			/>
+		</>
 	)
 }
 

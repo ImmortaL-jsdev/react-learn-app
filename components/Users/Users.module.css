@@ -3,8 +3,46 @@
 	height: 100px;
 	border-radius: 50%;
 }
-.selectedPage {
-	font-weight: 600;
-	color: black;
+
+.pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+}
+
+.pagination span {
+	padding: 8px 12px;
 	cursor: pointer;
+	border: 1px solid #ccc;
+	margin: 0 2px;
+	border-radius: 4px;
+	transition: background-color 0.3s, border 0.3s;
+}
+
+.pagination span:hover {
+	border-color: #ffffff;
+	background-color: #ffffff;
+	color: #000000;
+}
+
+.pagination .selectedPage {
+	background-color: #292929;
+
+	border-color: #ffffff;
+}
+
+.pagination .dots {
+	padding: 8px;
+}
+
+.pagination span:not(.selectedPage) {
+	color: #333; /* Цвет текста для неактивных кнопок */
+}
+
+.pagination span.isDisabled {
+	color: #333333;
+	cursor: not-allowed;
+	border-color: transparent;
+	pointer-events: none;
 }
