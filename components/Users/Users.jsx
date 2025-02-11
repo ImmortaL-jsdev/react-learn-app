@@ -1,6 +1,8 @@
 import React from 'react'
 import s from '../Users/Users.module.css'
 import defaultAvatar from '../../src/assets/images.jpg'
+import { NavLink } from 'react-router-dom'
+import ProfileContainer from '../Profile/ProfileContainer'
 
 const Users = ({
 	users,
@@ -70,20 +72,29 @@ const Users = ({
 				</span>
 			</div>
 			{users.map(u => (
-				<div key={u.id}>
+				<div key={u.id} className={s.userProfile}>
 					<span>
 						<div>
-							<img
-								src={u.photos.small || defaultAvatar}
-								className={s.usersAvatar}
-								alt={u.name}
-							/>
+							<NavLink to='/profile/*'>
+								<img
+									src={u.photos.small || defaultAvatar}
+									className={s.usersAvatar}
+									alt={u.name}
+								/>
+							</NavLink>
 						</div>
 						<div>
 							{u.followed ? (
-								<button onClick={() => unfollow(u.id)}>Unfollow</button>
+								<button
+									onClick={() => unfollow(u.id)}
+									className={s.buttonUnFollow}
+								>
+									Unfollow
+								</button>
 							) : (
-								<button onClick={() => follow(u.id)}>Follow</button>
+								<button onClick={() => follow(u.id)} className={s.buttonFollow}>
+									Follow
+								</button>
 							)}
 						</div>
 					</span>

@@ -13,6 +13,7 @@ import DialogsContainer from '../components/Dialogs/DialogsContainer.jsx'
 import Users from '../components/Users/Users.jsx'
 import Home from '../components/Home/Home.jsx'
 import UsersContainer from '../components/Users/UsersContainer.jsx'
+import ProfileContainer from '../components/Profile/ProfileContainer.jsx'
 
 const App = () => {
 	const profilePage = useSelector(state => state.profilePage)
@@ -43,7 +44,7 @@ const App = () => {
 							path='/profile/*'
 							element={
 								profilePage ? (
-									<Profile
+									<ProfileContainer
 										postData={profilePage.postData}
 										profilePage={profilePage}
 									/>

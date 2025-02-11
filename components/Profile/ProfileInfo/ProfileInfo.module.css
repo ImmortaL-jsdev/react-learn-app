@@ -1,11 +1,17 @@
-.profile_info {
-	color: rgb(0, 0, 0);
+.profileInfo {
+	color: #ffffff;
+	text-align: center;
+	margin: auto;
 }
 .avatar {
 	width: 150px;
 	height: 150px;
 	border-radius: 50%;
 }
-.description_block {
+.descriptionIlock {
 	padding: 10px;
+}
+.myContacts {
+	display: flex;
+	flex-direction: column;
 }
