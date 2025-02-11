@@ -3,16 +3,15 @@ import s from '../ProfileInfo/ProfileInfo.module.css'
 const ProfileInfo = ({ profile }) => {
 	return (
 		<div className={s.profileInfo}>
-			{/* Комментируемый код для аватара */}
-			{/* <div>  
-                <img className={s.avatar} src='src/assets/avatar.jpeg' alt='avatar' />  
-            </div> */}
+			{/* <div>
+				<img className={s.avatar} src='src\assets\images.jpg' alt='avatar' />
+			</div> */}
 
 			<div className={s.descriptionBlock}>
 				{profile && profile.photos ? (
 					<img src={profile.photos.large} alt='' />
 				) : (
-					<p>Профиль не найден или данные отсутствуют</p>
+					<p>Данных нет</p>
 				)}
 
 				{/* Проверяем наличие aboutMe */}

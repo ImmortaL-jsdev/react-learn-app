@@ -12,6 +12,7 @@ import Users from './Users'
 import axios from 'axios'
 
 import Preloader from '../common/Preloader'
+import { useParams } from 'react-router-dom'
 
 const UsersContainer = () => {
 	const users = useSelector(state => state.users.users || []) // Получаем массив пользователей из Redux

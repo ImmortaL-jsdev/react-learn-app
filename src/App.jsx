@@ -41,7 +41,7 @@ const App = () => {
 						/>
 						<Route />
 						<Route
-							path='/profile/*'
+							path='/profile/:userId'
 							element={
 								profilePage ? (
 									<ProfileContainer

@@ -1,7 +1,7 @@
 import React from 'react'
 import s from '../Users/Users.module.css'
 import defaultAvatar from '../../src/assets/images.jpg'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import ProfileContainer from '../Profile/ProfileContainer'
 
 const Users = ({
@@ -75,7 +75,7 @@ const Users = ({
 				<div key={u.id} className={s.userProfile}>
 					<span>
 						<div>
-							<NavLink to='/profile/*'>
+							<NavLink to={`/profile/${u.id}`}>
 								<img
 									src={u.photos.small || defaultAvatar}
 									className={s.usersAvatar}
