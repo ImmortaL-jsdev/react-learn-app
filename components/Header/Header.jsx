@@ -1,13 +1,17 @@
 import s from '../Header/Header.module.css'
-const Header = () => {
+import { NavLink } from 'react-router-dom'
+
+const Header = ({ login, isAuth }) => {
 	return (
-		<>
-			<header className={s.header}>
-				<div className={s.profile__header}>
-					<a href='/home'>SoWork</a>
+		<header className={s.header}>
+			<div className={s.profileHeader}>
+				<a href='/home'>SoWork</a>
+				<div className={s.loginBlock}>
+					{isAuth ? login : <NavLink to='/login'>Login</NavLink>}
 				</div>
-			</header>
-		</>
+			</div>
+		</header>
 	)
 }
+
 export default Header

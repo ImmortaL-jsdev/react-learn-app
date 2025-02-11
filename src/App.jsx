@@ -1,19 +1,16 @@
 import React from 'react'
-import Header from '../components/Header/Header.jsx'
 import NavBar from '../components/Navbar/Nav.jsx'
 import './App.css'
-import Profile from '../components/Profile/Profile.jsx'
-import Dialogs from '../components/Dialogs/Dialogs.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Music from '../components/Musics/Music.jsx'
 import Settings from '../components/Settings/Settings.jsx'
-
 import { Provider, useSelector } from 'react-redux'
 import DialogsContainer from '../components/Dialogs/DialogsContainer.jsx'
 import Users from '../components/Users/Users.jsx'
 import Home from '../components/Home/Home.jsx'
 import UsersContainer from '../components/Users/UsersContainer.jsx'
 import ProfileContainer from '../components/Profile/ProfileContainer.jsx'
+import HeaderContainer from '../components/Header/HeaderContainer.jsx'
 
 const App = () => {
 	const profilePage = useSelector(state => state.profilePage)
@@ -22,7 +19,7 @@ const App = () => {
 	return (
 		<BrowserRouter>
 			<div className='app-wrapper'>
-				<Header />
+				<HeaderContainer />
 				<NavBar />
 				<div className='app-wrapper-content'>
 					<Routes>
