@@ -1,3 +1,4 @@
+import React from 'react'
 import s from '../DialogItem/DialogItem.module.css'
 import { NavLink } from 'react-router-dom'
 

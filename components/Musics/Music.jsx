@@ -1,3 +1,4 @@
+import React from 'react'
 import s from '../Musics/Music.module.css'
 const Music = () => {
 	return (

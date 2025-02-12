@@ -13,6 +13,7 @@ import axios from 'axios'
 
 import Preloader from '../common/Preloader'
 import { useParams } from 'react-router-dom'
+import { getUsers } from '../../API/allApi'
 
 const UsersContainer = () => {
 	const users = useSelector(state => state.users.users || []) // Получаем массив пользователей из Redux
@@ -44,23 +45,16 @@ const UsersContainer = () => {
 		dispatch(tougleIsFetchingAC(isFetching))
 	}
 
-	let onPageChanged = async pageNumber => {
+	const onPageChanged = async pageNumber => {
 		setCurrentPage(pageNumber)
 		tougleIsFetching(true)
 		try {
-			const response = await axios.get(
-				`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${pageSize}`,
-			)
-
-			// Проверяем, что response.data.items - это массив
-			if (Array.isArray(response.data.items)) {
-				setUsers(response.data.items)
-				setTotalUsersCount(response.data.totalCount)
-				tougleIsFetching(false)
-			} else {
-				console.error('Ошибка: items не является массивом', response.data.items)
-			}
+			const response = await getUsers(pageNumber, pageSize)
+			setUsers(response.items)
+			setTotalUsersCount(response.totalCount)
+			tougleIsFetching(false)
 		} catch (error) {
+			tougleIsFetching(false)
 			console.error('Ошибка при получении пользователей:', error.message)
 		}
 	}
@@ -68,18 +62,12 @@ const UsersContainer = () => {
 	const fetchUsers = async () => {
 		tougleIsFetching(true)
 		try {
-			const response = await axios.get(
-				`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`,
-			)
-
-			// Проверяем, что response.data.items - это массив
-			if (Array.isArray(response.data.items)) {
-				tougleIsFetching(false)
-				setUsers(response.data.items)
-			} else {
-				console.error('Ошибка: items не является массивом', response.data.items)
-			}
+			const response = await getUsers(currentPage, pageSize)
+			setUsers(response.items)
+			setTotalUsersCount(response.totalCount)
+			tougleIsFetching(false)
 		} catch (error) {
+			tougleIsFetching(false)
 			console.error('Ошибка при получении пользователей:', error.message)
 		}
 	}

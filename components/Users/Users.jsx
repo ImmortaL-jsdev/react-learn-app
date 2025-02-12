@@ -120,7 +120,7 @@ import React from 'react'
 import s from '../Users/Users.module.css'
 import defaultAvatar from '../../src/assets/images.jpg'
 import { NavLink } from 'react-router-dom'
-import axios from 'axios'
+import { followUser, unfollowUser } from '../../API/allApi' // Импортируйте функции
 
 const Users = ({
 	users,
@@ -209,9 +209,6 @@ const Users = ({
 												`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
 												{
 													withCredentials: true,
-													headers: {
-														'API-KEY': '3ad7ca5b-685b-4971-a1e0-f4d8f35402a2',
-													},
 												},
 											)
 
@@ -232,23 +229,12 @@ const Users = ({
 								<button
 									onClick={async () => {
 										try {
-											const response = await axios.post(
-												`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-												{},
-												{
-													withCredentials: true,
-													headers: {
-														'API-KEY': '3ad7ca5b-685b-4971-a1e0-f4d8f35402a2',
-													},
-												},
-											)
-											if (response.data.resultCode === 0) {
+											const isFollowed = await followUser(u.id)
+											if (isFollowed) {
 												follow(u.id)
-											} else {
-												console.log('Вы не авторизованы')
 											}
 										} catch (error) {
-											console.error('Ошибка при получении данных', error)
+											console.error('Ошибка при попытке подписаться', error)
 										}
 									}}
 									className={s.buttonFollow}
