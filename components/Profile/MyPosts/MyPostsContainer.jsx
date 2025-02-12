@@ -1,3 +1,4 @@
+import React from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import {
 	addPostActionCreator,

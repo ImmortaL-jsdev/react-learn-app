@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState } from 'react'
 import s from '../Post/Post.module.css'
 

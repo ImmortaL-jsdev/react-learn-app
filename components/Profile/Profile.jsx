@@ -1,3 +1,4 @@
+import React from 'react'
 import s from '../Profile/Profile.module.css'
 import MyPosts from './MyPosts/MyPosts'
 import MyPostsContainer from './MyPosts/MyPostsContainer'

@@ -4,6 +4,7 @@ import { Provider } from 'react-redux' // Импортируем Provider
 import './index.css'
 import store from './redux/redux-store.jsx'
 import App from './App.jsx'
+import React from 'react'
 
 // Создаем корень сразу после импорта необходимых модулей
 const container = document.getElementById('root')
