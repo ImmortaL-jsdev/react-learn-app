@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { setUserDataAC } from '../../src/redux/authReducer' // Не забудьте импортировать ваш action creator
 import React from 'react'
+import { getAuthMe } from '../../API/allApi'
 
 const HeaderContainer = () => {
 	const isAuth = useSelector(state => state.auth.isAuth)
@@ -17,14 +18,9 @@ const HeaderContainer = () => {
 
 	const fetchAuthMe = async () => {
 		try {
-			const response = await axios.get(
-				'https://social-network.samuraijs.com/api/1.0/auth/me',
-				{
-					withCredentials: true,
-				},
-			)
-			if (response.data.resultCode === 0) {
-				const { id, login, email } = response.data.data
+			const response = await getAuthMe()
+			if (response && response.resultCode === 0) {
+				const { id, login, email } = response.data
 				setUserData({ id, login, email })
 			} else {
 				console.log('Вы не авторизованы')
