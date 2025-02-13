@@ -28,23 +28,3 @@ export const getUsers = async (pageNumber, pageSize) => {
 		throw error
 	}
 }
-
-export const followUser = async userId => {
-	try {
-		const response = await apiClient.post(`/follow/${userId}`, {})
-		return response.data.resultCode === 0
-	} catch (error) {
-		console.error('Error following user:', error.message)
-		throw error
-	}
-}
-
-export const unfollowUser = async userId => {
-	try {
-		const response = await apiClient.delete(`/follow/${userId}`)
-		return response.data.resultCode === 0
-	} catch (error) {
-		console.error('Error unfollowing user:', error.message)
-		throw error
-	}
-}
