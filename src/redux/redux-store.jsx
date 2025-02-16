@@ -1,9 +1,10 @@
-import { combineReducers, legacy_createStore } from 'redux'
+import { applyMiddleware, combineReducers, legacy_createStore } from 'redux'
 import profileReducer from './profileReducer' // Импортируйте ваши редюсеры
 import dialogsReducer from './dialogsReducer'
 import navBarReducer from './navBarReducer'
 import usersReducer from './usersReducer'
 import authReducer from './authReducer'
+import { thunk } from 'redux-thunk'
 
 const rootReducer = combineReducers({
 	profilePage: profileReducer,
@@ -13,7 +14,7 @@ const rootReducer = combineReducers({
 	auth: authReducer,
 })
 
-const store = legacy_createStore(rootReducer)
+const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 
 window.store = store
 

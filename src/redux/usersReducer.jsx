@@ -1,3 +1,5 @@
+import { fetchFollowUser, fetchUnFollowUser, getUsers } from '../../api/allApi'
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -94,5 +96,50 @@ export const toggleIsButtonDisabledAC = isDisabled => ({
 	type: TOGGLE_IS_BUTTON_DISABLED,
 	isDisabled,
 })
+export const fetchUsersThunk = (pageNumber, pageSize) => async dispatch => {
+	dispatch(tougleIsFetchingAC(true)) // Устанавливаем состояние загрузки
+	dispatch(setCurrentPageAC(pageNumber))
+	try {
+		const response = await getUsers(pageNumber, pageSize)
+		dispatch(setUsersAC(response.items)) // Устанавливаем пользователей
+		dispatch(setTotalUsersCountAC(response.totalCount)) // Устанавливаем общее количество пользователей
+	} catch (error) {
+		console.error('Ошибка при получении пользователей:', error.message)
+	} finally {
+		dispatch(tougleIsFetchingAC(false)) // Сбрасываем состояние загрузки
+	}
+}
+
+export const followUserThunk = userId => async dispatch => {
+	dispatch(toggleIsButtonDisabledAC(true))
+	try {
+		const success = await fetchFollowUser(userId)
+		if (success) {
+			dispatch(followAC(userId))
+		} else {
+			console.error('Не удалось подписаться')
+		}
+	} catch (error) {
+		console.error('Ошибка при подписке:', error.message)
+	} finally {
+		dispatch(toggleIsButtonDisabledAC(false))
+	}
+}
+
+export const unfollowUserThunk = userId => async dispatch => {
+	dispatch(toggleIsButtonDisabledAC(true))
+	try {
+		const success = await fetchUnFollowUser(userId)
+		if (success) {
+			dispatch(unfollowAC(userId))
+		} else {
+			console.error('Не удалось отменить подписку')
+		}
+	} catch (error) {
+		console.error('Ошибка при отмене подписки:', error.message)
+	} finally {
+		dispatch(toggleIsButtonDisabledAC(false))
+	}
+}
 
 export default usersReducer
