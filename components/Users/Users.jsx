@@ -11,6 +11,8 @@ const Users = ({
 	onPageChanged,
 	fetchFollow,
 	fetchUnFollow,
+	isFetching,
+	isButtonDisabled,
 }) => {
 	if (!Array.isArray(users)) {
 		return <div>Ошибка: users не является массивом.</div>
@@ -20,11 +22,8 @@ const Users = ({
 		return <div>Пользователи не найдены</div>
 	}
 
-	let pagesCount = Math.ceil(totalUsersCount / pageSize)
-	let pages = []
-	for (let i = 1; i <= pagesCount; i++) {
-		pages.push(i)
-	}
+	const pagesCount = Math.ceil(totalUsersCount / pageSize)
+	const pages = Array.from({ length: pagesCount }, (_, i) => i + 1)
 
 	const displayedPages = pages.slice(
 		Math.max(0, currentPage - 2),
@@ -69,6 +68,7 @@ const Users = ({
 					&raquo;
 				</span>
 			</div>
+
 			{users.map(u => (
 				<div key={u.id} className={s.userProfile}>
 					<span>
@@ -86,6 +86,7 @@ const Users = ({
 								<button
 									onClick={() => fetchUnFollow(u.id)}
 									className={s.buttonUnFollow}
+									disabled={isButtonDisabled}
 								>
 									Unfollow
 								</button>
@@ -93,6 +94,7 @@ const Users = ({
 								<button
 									onClick={() => fetchFollow(u.id)}
 									className={s.buttonFollow}
+									disabled={isButtonDisabled}
 								>
 									Follow
 								</button>

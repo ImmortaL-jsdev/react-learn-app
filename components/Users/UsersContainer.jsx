@@ -7,27 +7,21 @@ import {
 	setCurrentPageAC,
 	setTotalUsersCountAC,
 	tougleIsFetchingAC,
+	toggleIsButtonDisabledAC,
 } from '../../src/redux/usersReducer'
 import Users from './Users'
 import Preloader from '../common/Preloader'
-import { followUser, getUsers, unfollowUser } from '../../API/allApi'
+import { fetchFollowUser, getUsers, fetchUnFollowUser } from '../../api/allApi'
 
 const UsersContainer = () => {
+	const dispatch = useDispatch()
 	const users = useSelector(state => state.users.users || [])
 	const pageSize = useSelector(state => state.users.pageSize)
 	const totalUsersCount = useSelector(state => state.users.totalUsersCount)
 	const currentPage = useSelector(state => state.users.currentPage)
 	const isFetching = useSelector(state => state.users.isFetching)
-	const isAuth = useSelector(state => state.auth.isAuth) // Получаем статус аутентификации
-	const dispatch = useDispatch()
-
-	const follow = userId => {
-		dispatch(followAC(userId))
-	}
-
-	const unfollow = userId => {
-		dispatch(unfollowAC(userId))
-	}
+	const isButtonDisabled = useSelector(state => state.users.isButtonDisabled)
+	const isAuth = useSelector(state => state.auth.isAuth)
 
 	const setUsers = users => {
 		dispatch(setUsersAC(users))
@@ -41,13 +35,17 @@ const UsersContainer = () => {
 		dispatch(setTotalUsersCountAC(totalCount))
 	}
 
-	const tougleIsFetching = isFetching => {
+	const toggleIsFetching = isFetching => {
 		dispatch(tougleIsFetchingAC(isFetching))
+	}
+
+	const toggleIsButtonDisabled = isDisabled => {
+		dispatch(toggleIsButtonDisabledAC(isDisabled))
 	}
 
 	const onPageChanged = async pageNumber => {
 		setCurrentPage(pageNumber)
-		tougleIsFetching(true)
+		toggleIsFetching(true)
 		try {
 			const response = await getUsers(pageNumber, pageSize)
 			setUsers(response.items)
@@ -55,12 +53,12 @@ const UsersContainer = () => {
 		} catch (error) {
 			console.error('Ошибка при получении пользователей:', error.message)
 		} finally {
-			tougleIsFetching(false)
+			toggleIsFetching(false)
 		}
 	}
 
 	const fetchUsers = async () => {
-		tougleIsFetching(true)
+		toggleIsFetching(true)
 		try {
 			const response = await getUsers(currentPage, pageSize)
 			setUsers(response.items)
@@ -68,13 +66,13 @@ const UsersContainer = () => {
 		} catch (error) {
 			console.error('Ошибка при получении пользователей:', error.message)
 		} finally {
-			tougleIsFetching(false)
+			toggleIsFetching(false)
 		}
 	}
 
 	useEffect(() => {
 		if (!Array.isArray(users) || users.length === 0) {
-			fetchUsers() // Загружаем пользователей только если users не массив или пуст
+			fetchUsers()
 		}
 	}, [users])
 
@@ -83,15 +81,19 @@ const UsersContainer = () => {
 			console.warn('Пользователь не авторизован')
 			return
 		}
+
+		toggleIsButtonDisabled(true)
 		try {
-			const success = await followUser(userId)
+			const success = await fetchFollowUser(userId)
 			if (success) {
-				follow(userId)
+				dispatch(followAC(userId))
 			} else {
-				console.error('Ошибка: Не удалось подписаться')
+				console.error('Не удалось подписаться')
 			}
 		} catch (error) {
 			console.error('Ошибка при подписке:', error.message)
+		} finally {
+			toggleIsButtonDisabled(false)
 		}
 	}
 
@@ -100,21 +102,26 @@ const UsersContainer = () => {
 			console.warn('Пользователь не авторизован')
 			return
 		}
+
+		toggleIsButtonDisabled(true)
 		try {
-			const success = await unfollowUser(userId)
+			const success = await fetchUnFollowUser(userId)
 			if (success) {
-				unfollow(userId)
+				dispatch(unfollowAC(userId))
 			} else {
-				console.log('Ошибка: Не удалось отменить подписку')
+				console.error('Не удалось отменить подписку')
 			}
 		} catch (error) {
 			console.error('Ошибка при отмене подписки:', error.message)
+		} finally {
+			toggleIsButtonDisabled(false)
 		}
 	}
 
 	return (
 		<>
-			<Preloader isFetching={isFetching} />
+			<Preloader isFetching={isFetching} isButtonDisabled={isButtonDisabled} />
+
 			<Users
 				users={users}
 				pageSize={pageSize}
@@ -123,6 +130,8 @@ const UsersContainer = () => {
 				onPageChanged={onPageChanged}
 				fetchFollow={fetchFollow}
 				fetchUnFollow={fetchUnFollow}
+				isFetching={isFetching}
+				isButtonDisabled={isButtonDisabled} // Передаем isButtonDisabled
 			/>
 		</>
 	)

@@ -30,25 +30,26 @@ export const getUsers = async (pageNumber, pageSize) => {
 	}
 }
 
-export const followUser = async userId => {
+export const fetchFollowUser = async userId => {
 	try {
-		const response = await apiClient.post(`/follow/${userId}`, {})
-		return response.data.resultCode === 0
+		await apiClient.post(`/follow/${userId}`)
+		return true // Успех подписки
 	} catch (error) {
-		console.error('Error following user:', error.message)
-		throw error
+		console.error('Ошибка при подписке:', error.message)
+		return false // Ошибка подписки
 	}
 }
 
-export const unfollowUser = async userId => {
+export const fetchUnFollowUser = async userId => {
 	try {
-		const response = await apiClient.delete(`/follow/${userId}`)
-		return response.data.resultCode === 0
+		await apiClient.delete(`/follow/${userId}`)
+		return true // Успех отмены подписки
 	} catch (error) {
-		console.error('Error unfollowing user:', error.message)
-		throw error
+		console.error('Ошибка при отмене подписки:', error.message)
+		return false // Ошибка отмены подписки
 	}
 }
+
 export const getAuthMe = async () => {
 	try {
 		const response = await apiClient.get('/auth/me')
