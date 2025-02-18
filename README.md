@@ -12,6 +12,6 @@ I am a beginner frontend developer, 16 years old, from Russia. I have a strong f
 ## 🏆 GitHub Trophies
 ![](https://github-profile-trophy.vercel.app/?username=ImmortaL-jsdev&theme=shadow_red&no-frame=false&no-bg=false&margin-w=4)
 
-(https://visitcount.itsvg.in/api?id=ImmortaL-jsdev&icon=3&color=2)](https://visitcount.itsvg.in)
+
 
 <!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
