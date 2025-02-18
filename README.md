@@ -1,5 +1,5 @@
 # 💫 About Me:
-I am a beginner frontend developer, 16 years old, from Russia. I have a strong foundation in HTML, CSS, and JavaScript, and I have experience with CSS preprocessors, React, and Redux. I am passionate about creating beautiful and user-friendly websites and eager to continue improving my skills by working on exciting projects in the future.
+I am a beginner frontend developer, 16 years old, from Russia. I have a strong foundation in HTML, CSS, and JavaScript, and I have experience with SCSS preprocessors, React, and Redux. I am passionate about creating beautiful and user-friendly websites and eager to continue improving my skills by working on exciting projects in the future.
 
 
 # 💻 Tech Stack:
