@@ -1,16 +1,14 @@
+import { act } from 'react'
+import { getUserProfile } from '../../api/allApi'
+
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
-let initialState = {
-	postData: [
-		{ id: 1, post: 'Hi, how are you?', likesCount: 54 },
-		{ id: 2, post: "It's my first post", likesCount: 123 },
-		{ id: 3, post: "It's my second post", likesCount: 1234124 },
-		{ id: 4, post: "It's my third post", likesCount: 634 },
-		{ id: 5, post: "It's my fourth post", likesCount: 2145125 },
-		{ id: 6, post: "It's my fifth post", likesCount: 11 },
-	],
+const initialState = {
+	postData: [],
 	newPostText: '',
+	profile: null,
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -31,10 +29,16 @@ const profileReducer = (state = initialState, action) => {
 				postData: [...state.postData, newPost],
 				newPostText: '',
 			}
+		case SET_USER_PROFILE:
+			return {
+				...state,
+				profile: action.profile,
+			}
 		default:
 			return state
 	}
 }
+
 export const addPostActionCreator = () => ({
 	type: ADD_POST,
 })
@@ -43,5 +47,22 @@ export const updateNewPostTextActionCreator = text => ({
 	type: UPDATE_NEW_POST_TEXT,
 	newText: text,
 })
+
+export const setUserProfileAC = profile => ({
+	type: SET_USER_PROFILE,
+	profile,
+})
+
+export const fetchUserProfileThunk = userId => async dispatch => {
+	try {
+		const profileData = await getUserProfile(userId) // Вызов getUserProfile и ожидание результата
+		if (profileData) {
+			dispatch(setUserProfileAC(profileData)) // Передаем данные профиля в setUserProfileAC
+		}
+	} catch (error) {
+		console.error('Ошибка при получении профиля пользователя:', error)
+		return null
+	}
+}
 
 export default profileReducer

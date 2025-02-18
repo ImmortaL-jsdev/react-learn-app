@@ -1,4 +1,6 @@
+import React from 'react'
 import s from '../Settings/Settings.module.css'
+import withAuthRedirect from '../../hoc/WithAuthRedirect.jsx'
 const Settings = () => {
 	return (
 		<>
@@ -6,4 +8,4 @@ const Settings = () => {
 		</>
 	)
 }
-export default Settings
+export default withAuthRedirect(Settings)

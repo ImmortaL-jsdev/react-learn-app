@@ -1,3 +1,4 @@
+import React from 'react'
 import s from '../Navbar/Nav.module.css'
 import { NavLink } from 'react-router-dom'
 const NavBar = () => {
@@ -7,7 +8,16 @@ const NavBar = () => {
 				<div className={s.item}>
 					{' '}
 					<NavLink
-						to='/profile'
+						to='/home'
+						className={navData => (navData.isActive ? s.active : s.item)}
+					>
+						Home
+					</NavLink>
+				</div>
+				<div className={s.item}>
+					{' '}
+					<NavLink
+						to='/profile/32151'
 						className={navData => (navData.isActive ? s.active : s.item)}
 					>
 						Profile
@@ -23,6 +33,14 @@ const NavBar = () => {
 					</NavLink>
 				</div>
 				<div className={s.item}>
+					<NavLink
+						to='/users'
+						className={navData => (navData.isActive ? s.active : s.item)}
+					>
+						Users
+					</NavLink>
+				</div>
+				<div className={s.item}>
 					{' '}
 					<NavLink
 						to='/music'
@@ -31,6 +49,7 @@ const NavBar = () => {
 						Music
 					</NavLink>
 				</div>
+
 				<div className={s.item}>
 					{' '}
 					<NavLink
@@ -38,14 +57,6 @@ const NavBar = () => {
 						className={navData => (navData.isActive ? s.active : s.item)}
 					>
 						Settings
-					</NavLink>
-				</div>
-				<div className={s.item}>
-					<NavLink
-						to='/friends'
-						className={navData => (navData.isActive ? s.active : s.item)}
-					>
-						Friends
 					</NavLink>
 				</div>
 			</nav>

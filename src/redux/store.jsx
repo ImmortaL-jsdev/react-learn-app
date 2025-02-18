@@ -1,8 +1,5 @@
-import { act } from 'react'
 import profileReducer from './profileReducer'
 import dialogsReducer from './dialogsReducer'
-
-const rerenderEntireTree = () => {}
 
 const store = {
 	_state: {
@@ -29,10 +26,7 @@ const store = {
 			messageData: [
 				{ id: 1, message: 'Hello' },
 				{ id: 2, message: 'How are you' },
-				{
-					id: 3,
-					message: 'Who are you nigga, why are you kidding me?',
-				},
+				{ id: 3, message: 'Who are you?' },
 				{ id: 4, message: 'Hola amigo, tu hablas espanol?' },
 				{ id: 5, message: 'Yo, I am Fiona' },
 				{ id: 6, message: 'My name is Raze' },
@@ -41,7 +35,7 @@ const store = {
 		},
 	},
 
-	callSubscriber() {
+	_callSubscriber() {
 		console.log('state changed')
 	},
 
@@ -56,7 +50,6 @@ const store = {
 	dispatch(action) {
 		this._state.profilePage = profileReducer(this._state.profilePage, action)
 		this._state.messagesPage = dialogsReducer(this._state.messagesPage, action)
-
 		this._callSubscriber(this._state)
 	},
 }

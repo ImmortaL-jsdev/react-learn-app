@@ -12,3 +12,7 @@
 .likesCount {
 	color: black;
 }
+
+.addLike:hover {
+	cursor: pointer;
+}

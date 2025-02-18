@@ -1,0 +1,83 @@
+.usersAvatar {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+.pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+}
+
+.pagination span {
+	padding: 8px 12px;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	margin: 0 2px;
+	border-radius: 4px;
+	transition: background-color 0.3s, border 0.3s;
+}
+
+.pagination span:hover {
+	border-color: #ffffff;
+	background-color: #ffffff;
+	color: #000000;
+}
+
+.pagination .selectedPage {
+	background-color: #292929;
+
+	border-color: #ffffff;
+}
+
+.pagination .dots {
+	padding: 8px;
+}
+
+.pagination span:not(.selectedPage) {
+	color: #333; /* Цвет текста для неактивных кнопок */
+}
+
+.pagination span.isDisabled {
+	color: #333333;
+	cursor: not-allowed;
+	border-color: transparent;
+	pointer-events: none;
+}
+.userProfile {
+	width: 500px;
+	margin: 10px;
+	text-align: center;
+	margin: 10px auto;
+	padding: 25px;
+	background-color: #3d3d3d;
+	border: 1px #313131 solid;
+	border-radius: 2%;
+}
+.buttonUnFollow {
+	width: 100px;
+	height: 50px;
+	font-size: 17px;
+	border-radius: 5px;
+	border: none;
+}
+.buttonUnFollow:hover {
+	background-color: #790000;
+
+	transition: 0.5s;
+	cursor: pointer;
+}
+.buttonFollow {
+	width: 100px;
+	height: 50px;
+	font-size: 17px;
+	border-radius: 5px;
+	border: none;
+}
+.buttonFollow:hover {
+	background-color: #007700;
+	transition: 0.5s;
+	cursor: pointer;
+}
