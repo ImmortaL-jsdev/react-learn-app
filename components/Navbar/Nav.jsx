@@ -17,7 +17,7 @@ const NavBar = () => {
 				<div className={s.item}>
 					{' '}
 					<NavLink
-						to='/profile'
+						to='/profile/32151'
 						className={navData => (navData.isActive ? s.active : s.item)}
 					>
 						Profile

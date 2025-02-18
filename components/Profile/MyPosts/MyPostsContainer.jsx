@@ -20,11 +20,8 @@ const MyPostsContainer = () => {
 		dispatch(addPostActionCreator())
 	}
 	const onPostChange = e => {
-		updateNewPostText(e.target.value) // Ensure this is being called correctly
+		updateNewPostText(e.target.value)
 	}
-	// const handleLike = postId => {
-	// 	dispatch(likePostActionCreator(postId))
-	// }
 
 	return (
 		<MyPosts

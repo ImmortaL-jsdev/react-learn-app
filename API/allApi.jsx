@@ -64,3 +64,13 @@ export const getAuthMe = async () => {
 		return null // возвращаем null в случае ошибки
 	}
 }
+
+export const getUserProfile = async userId => {
+	try {
+		const response = await apiClient.get(`/profile/${userId}`)
+		return response.data
+	} catch (error) {
+		console.error('Ошибка при получении профиля пользователя:', error)
+		return null
+	}
+}

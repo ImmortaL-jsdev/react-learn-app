@@ -96,6 +96,7 @@ export const toggleIsButtonDisabledAC = isDisabled => ({
 	type: TOGGLE_IS_BUTTON_DISABLED,
 	isDisabled,
 })
+
 export const fetchUsersThunk = (pageNumber, pageSize) => async dispatch => {
 	dispatch(tougleIsFetchingAC(true)) // Устанавливаем состояние загрузки
 	dispatch(setCurrentPageAC(pageNumber))

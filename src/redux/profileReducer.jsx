@@ -1,4 +1,5 @@
 import { act } from 'react'
+import { getUserProfile } from '../../api/allApi'
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -51,5 +52,17 @@ export const setUserProfileAC = profile => ({
 	type: SET_USER_PROFILE,
 	profile,
 })
+
+export const fetchUserProfileThunk = userId => async dispatch => {
+	try {
+		const profileData = await getUserProfile(userId) // Вызов getUserProfile и ожидание результата
+		if (profileData) {
+			dispatch(setUserProfileAC(profileData)) // Передаем данные профиля в setUserProfileAC
+		}
+	} catch (error) {
+		console.error('Ошибка при получении профиля пользователя:', error)
+		return null
+	}
+}
 
 export default profileReducer
