@@ -11,6 +11,7 @@ import Home from '../components/Home/Home.jsx'
 import UsersContainer from '../components/Users/UsersContainer.jsx'
 import ProfileContainer from '../components/Profile/ProfileContainer.jsx'
 import HeaderContainer from '../components/Header/HeaderContainer.jsx'
+import Login from '../components/Login/Login.jsx'
 
 const App = () => {
 	const profilePage = useSelector(state => state.profilePage)
@@ -23,51 +24,13 @@ const App = () => {
 				<NavBar />
 				<div className='app-wrapper-content'>
 					<Routes>
-						<Route
-							path='/home/*'
-							element={
-								profilePage ? (
-									<Home
-										postData={profilePage.postData}
-										profilePage={profilePage}
-									/>
-								) : (
-									<div>Loading home...</div>
-								)
-							}
-						/>
-						<Route />
-						<Route
-							path='/profile/:userId'
-							element={
-								profilePage ? (
-									<ProfileContainer
-										postData={profilePage.postData}
-										profilePage={profilePage}
-									/>
-								) : (
-									<div>Loading profile...</div>
-								)
-							}
-						/>
-						<Route
-							path='/dialogs/*'
-							element={
-								messagesPage ? (
-									<DialogsContainer
-										dialogsData={messagesPage.dialogsData}
-										messageData={messagesPage.messageData}
-										messagesPage={messagesPage}
-									/>
-								) : (
-									<div>Loading messages...</div>
-								)
-							}
-						/>
+						<Route path='/home/*' element={<Home />} />
+						<Route path='/profile/:userId' element={<ProfileContainer />} />
+						<Route path='/dialogs/*' element={<DialogsContainer />} />
 						<Route path='/users/*' element={<UsersContainer />} />
 						<Route path='/music/*' element={<Music />} />
 						<Route path='/settings/*' element={<Settings />} />
-						<Route path='/users/*' element={<Users />} />
+						<Route path='/login/*' element={<Login />} />
 					</Routes>
 				</div>
 			</div>

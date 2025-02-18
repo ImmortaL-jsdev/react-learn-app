@@ -50,18 +50,18 @@ export const fetchUnFollowUser = async userId => {
 	}
 }
 
-export const getAuthMe = async () => {
+export const getAuthMe = async userData => {
 	try {
 		const response = await apiClient.get('/auth/me')
 		if (response.data && response.data.resultCode !== undefined) {
-			return response.data // повернем все данные, а не только resultCode
+			return response.data
 		} else {
 			console.log('Вы не авторизованы')
-			return null // возвращаем null в случае неуспеха
+			return null // Return null for failure
 		}
 	} catch (error) {
 		console.error('Ошибка при получении данных', error)
-		return null // возвращаем null в случае ошибки
+		return null // Return null on error
 	}
 }
 

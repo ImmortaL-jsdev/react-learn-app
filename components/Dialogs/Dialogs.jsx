@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import DialogItem from './DialogItem/DialogItem'
 import s from './Dialogs.module.css'
 import Message from './Message/Message'
+import { Navigate } from 'react-router-dom'
 
 const Dialogs = ({ updateNewMessageBody, sendMessage, messagesPage }) => {
 	const dialogsElements = messagesPage.dialogsData.map(dialog => (

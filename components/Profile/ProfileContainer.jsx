@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Profile from './Profile'
 import { fetchUserProfileThunk } from '../../src/redux/profileReducer'
+import withAuthRedirect from '../../hoc/WithAuthRedirect.jsx'
 
 const ProfileContainer = () => {
 	const { userId } = useParams() // Получаем userId из URL
@@ -11,9 +12,9 @@ const ProfileContainer = () => {
 
 	useEffect(() => {
 		dispatch(fetchUserProfileThunk(userId))
-	}, [dispatch])
+	}, [dispatch, userId]) // Добавляем userId в зависимости
 
 	return <Profile profile={profile} />
 }
 
-export default ProfileContainer
+export default withAuthRedirect(ProfileContainer)

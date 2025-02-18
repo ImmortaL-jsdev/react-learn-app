@@ -13,13 +13,11 @@ const root = createRoot(container)
 // Функция для рендеринга приложения
 const renderEntireTree = () => {
 	root.render(
-		<StrictMode>
-			<Provider store={store}>
-				{' '}
-				{/* Оборачиваем App в Provider */}
-				<App />
-			</Provider>
-		</StrictMode>,
+		<Provider store={store}>
+			{' '}
+			{/* Оборачиваем App в Provider */}
+			<App />
+		</Provider>,
 	)
 }
 

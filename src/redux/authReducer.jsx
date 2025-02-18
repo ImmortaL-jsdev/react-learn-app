@@ -1,3 +1,5 @@
+import { getAuthMe } from '../../api/allApi'
+
 const SET_USER_DATA = 'SET_USER_DATA'
 
 const initialState = {
@@ -17,10 +19,23 @@ const authReducer = (state = initialState, action) => {
 	}
 }
 
-// Action creators
-
 export const setUserDataAC = userData => ({
 	type: SET_USER_DATA,
 	data: userData,
 })
+
+export const fetchAuthMeThunk = userData => async dispatch => {
+	try {
+		const response = await getAuthMe(userData)
+		if (response && response.resultCode === 0) {
+			const { id, login, email } = response.data
+			dispatch(setUserDataAC({ id, login, email }))
+		} else {
+			console.log('Вы не авторизованы')
+		}
+	} catch (error) {
+		console.error('Ошибка при получении данных', error)
+	}
+}
+
 export default authReducer

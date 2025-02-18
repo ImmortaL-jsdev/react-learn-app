@@ -1,7 +1,7 @@
 import React from 'react'
 import s from '../Users/Users.module.css'
 import defaultAvatar from '../../src/assets/images.jpg'
-import { NavLink } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 
 const Users = ({
 	users,
@@ -11,7 +11,6 @@ const Users = ({
 	onPageChanged,
 	fetchFollow,
 	fetchUnFollow,
-	isFetching,
 	isButtonDisabled,
 }) => {
 	if (!Array.isArray(users)) {

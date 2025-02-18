@@ -4,9 +4,10 @@ import {
 	followUserThunk,
 	unfollowUserThunk,
 	fetchUsersThunk,
-} from '../../src/redux/usersReducer' // Импортируйте ваши thunks
+} from '../../src/redux/usersReducer'
 import Users from './Users'
 import Preloader from '../common/Preloader'
+import withAuthRedirect from '../../hoc/WithAuthRedirect.jsx'
 
 const UsersContainer = () => {
 	const dispatch = useDispatch()
@@ -19,11 +20,11 @@ const UsersContainer = () => {
 	const isAuth = useSelector(state => state.auth.isAuth)
 
 	useEffect(() => {
-		dispatch(fetchUsersThunk(currentPage, pageSize)) // Используем thunk для получения пользователей
-	}, [dispatch, currentPage, pageSize]) // Добавьте зависимости для вызова при изменении страницы
+		dispatch(fetchUsersThunk(currentPage, pageSize))
+	}, [dispatch, currentPage, pageSize])
 
 	const onPageChanged = pageNumber => {
-		dispatch(fetchUsersThunk(pageNumber, pageSize)) // Используем thunk для получения пользователей
+		dispatch(fetchUsersThunk(pageNumber, pageSize))
 	}
 
 	const fetchFollow = userId => {
@@ -54,10 +55,11 @@ const UsersContainer = () => {
 				fetchFollow={fetchFollow}
 				fetchUnFollow={fetchUnFollow}
 				isFetching={isFetching}
+				isAuth={isAuth}
 				isButtonDisabled={isButtonDisabled}
 			/>
 		</>
 	)
 }
 
-export default UsersContainer
+export default withAuthRedirect(UsersContainer)
