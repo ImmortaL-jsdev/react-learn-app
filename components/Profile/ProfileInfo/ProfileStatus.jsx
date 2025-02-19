@@ -8,7 +8,8 @@ const ProfileStatus = ({ profile }) => {
 
 	useEffect(() => {
 		const fetchUserStatus = async () => {
-			if (profile?.userId) {
+			if (profile && profile.userId) {
+				// Изменено здесь
 				const status = await getUserStatus(profile.userId)
 				setAboutMe(status || 'Нет информации о себе')
 			}
@@ -36,6 +37,10 @@ const ProfileStatus = ({ profile }) => {
 
 	const specialCaseUserId = 32151
 
+	if (!profile) {
+		return <div>Загрузка...</div> // Можно добавить обработку состояния загрузки
+	}
+
 	return (
 		<div className={s.aboutMeWrapper}>
 			{editMode ? (
@@ -48,7 +53,9 @@ const ProfileStatus = ({ profile }) => {
 				<>
 					{profile.userId === specialCaseUserId ? (
 						<div>
-							<span>{aboutMe}</span>
+							<span style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+								{aboutMe}
+							</span>
 							<button onClick={handleEditMode}>Редактировать</button>
 						</div>
 					) : (
