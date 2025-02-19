@@ -1,12 +1,9 @@
 import s from '../ProfileInfo/ProfileInfo.module.css'
 import React from 'react'
+import ProfileStatus from './ProfileStatus'
 const ProfileInfo = ({ profile }) => {
 	return (
 		<div className={s.profileInfo}>
-			{/* <div>
-				<img className={s.avatar} src='src\assets\images.jpg' alt='avatar' />
-			</div> */}
-
 			<div className={s.descriptionBlock}>
 				{profile && profile.photos ? (
 					<img src={profile.photos.large} alt='' />
@@ -14,8 +11,7 @@ const ProfileInfo = ({ profile }) => {
 					<p>Данных нет</p>
 				)}
 
-				{/* Проверяем наличие aboutMe */}
-				<p>{profile ? profile.aboutMe : 'Информация о себе отсутствует'}</p>
+				<ProfileStatus profile={profile} />
 
 				<h3>
 					My contacts:
