@@ -74,3 +74,21 @@ export const getUserProfile = async userId => {
 		return null
 	}
 }
+export const getUserStatus = async userId => {
+	try {
+		const response = await apiClient.get(`/profile/status/${userId}`)
+		return response.data
+	} catch (error) {
+		console.error('Ошибка при получении статуса пользователя:', error)
+		return null
+	}
+}
+export const putUserStatus = async status => {
+	try {
+		await apiClient.put('/profile/status', { status })
+		return true
+	} catch (error) {
+		console.error('Ошибка при обновлении статуса пользователя:', error)
+		return false
+	}
+}

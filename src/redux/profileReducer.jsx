@@ -1,5 +1,5 @@
 import { act } from 'react'
-import { getUserProfile } from '../../api/allApi'
+import { getUserProfile } from '../../API/allApi'
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
