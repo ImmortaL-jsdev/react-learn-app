@@ -9,7 +9,7 @@ const ProfileStatus = ({ profile }) => {
 	useEffect(() => {
 		const fetchUserStatus = async () => {
 			if (profile && profile.userId) {
-				// Изменено здесь
+				
 				const status = await getUserStatus(profile.userId)
 				setAboutMe(status || 'Нет информации о себе')
 			}
@@ -38,7 +38,7 @@ const ProfileStatus = ({ profile }) => {
 	const specialCaseUserId = 32151
 
 	if (!profile) {
-		return <div>Загрузка...</div> // Можно добавить обработку состояния загрузки
+		return <div>Загрузка...</div> 
 	}
 
 	return (
